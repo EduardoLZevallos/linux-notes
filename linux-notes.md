@@ -392,11 +392,6 @@ journalctl --vacuum-size=100M  # Clean system logs
 
 ---
 
-After reviewing your original notes, I notice a few important topics that haven't been fully covered in my last three responses. Here's what needs to be added:
-
----
-
-### **Missing Topics from Original Notes**
 
 #### **1. Process Execution Priorities**
 - **Niceness Values**:
