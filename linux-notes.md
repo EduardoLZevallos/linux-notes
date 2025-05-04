@@ -73,6 +73,8 @@
 ---
 
 ### **5. Redirection & Pipes**
+Difference between > and | , redirection connects a command with a file, while pipeline connects output of one command to input of another command 
+
 - **Standard Streams**:
   - `0` (stdin), `1` (stdout), `2` (stderr).
 - **Redirection**:
@@ -147,7 +149,15 @@
   grep -l "text" *.txt           # List matching files
   grep -w "word" file.txt        # Whole-word match
   grep -A 3 -B 2 "context" file  # Show surrounding lines
+   -A n	Show n lines after the match
+  -B n	Show n lines before the match
+  -C n	Show n lines around the match
+
+  # Find running processes containing "nginx":
+  ps aux | grep nginx
+
   ```
+
 - **`find`**:
   ```bash
   find /path -name "*.log"       # Search by name
