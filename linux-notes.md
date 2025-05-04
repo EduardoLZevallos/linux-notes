@@ -1,3 +1,51 @@
+## Unix and Linux System Administration Handbook
+
+- Processes consist of an address space and set of data structures within the kernel.   
+  - The address space is a set of memory pages that the kernel has marked for processes’s use..  These pages contain the code and libraries the the process is executing, process variables, stacks, and extra info needed for the kernel  
+- A thread is an execution context within a process.  Every process has at least one thread but some processes have many.    
+  - Each thread has its own stack and CPU context but operates within the address space of its enclosing process  
+- Proceese’s threads can run simultaneously on different cores.    
+- How new processes start  
+  - An existing process must clone itself to create a new process  
+  - The clone can then exchange the program its running for a different one  
+  - When a process is cloned, the original process is referred to as the parent and the copy is called the child.  PPID is the pid of the parent useful to trace a process back to its origin  
+- A process scheduling priority determines how much CPU times it receives.  The kernel computes priorities with a dynamic algo and takes into account the amount of CPU time that a process has recently consumed and the length of time it has been waiting to run.   
+- Creating a new process:  
+  - A process copies itself with the fork system . Fork creates a copy of the original process , with its own PID  
+  - The child process then uses exec to execute a new program. This call changes the program that the process is executing and resets the memory segments to a predefnied initial state.  
+- Init / systemd, plays an important role in process management  
+  - When a process completes it calls \_exit to notify the kernel that it is ready to die.  
+  - Before a profess can disappear, the kernel requires the death be acknowledged by the process’s parent which the parent does with a call to wait.   
+  - If the parent dies before the child then the child becomes a child of init or systemd  
+- Signals  
+  - When a signal is received, if the receiving process can handle a signal the handler is called  
+  - If the process can’t handle the signal then the kernel takes some default action on behalf of the process.  
+  - To prevent signals from arriving, programs can request the signal be ignored or blocked  
+  - Ignored \- means the signal is discarded  
+  - Blocked means it it queued until its unblocked  
+  - Signals KILL and STOP cannot be caught, blocked or ignored  
+- Threads  
+  - Threads typically need to wait for the kernel to complete some work before continuing execution  
+    - When a thread reads data from a file, the kernel must request the appropriate disk blocks and then arrange for their contents to be delivered into the processes address space, during this time the thread enters sleep  
+- Trouble shooting system  
+  - Can quickly find pid of a process with **$ ps aux | grep sshd** or **pidof /usr/sbin/sshd** or **pgrep sshd**  
+  - Can use top output to look and analyze health of the system  
+    - On multicore CPU usage is average of all the cores in the system  
+    - Root can run top at highest priority with \-q flag  
+  - High niceness means a low priority for your process , low niceness means high priority uses a lot of CPU  
+  - Disk bandwidth remains the primary bottleneck on most systems, I/O performances has not kept up  
+  - **Vmstat** and **ps** useful commands  
+  - Lower level analysis can use **strace** displays every system call that a process makes and every signal it receives. \-f flag of strace follows forked processes, \-e trace=file displays only file-related operations, useful for discovering evasive configuration files  
+  - Runaway processes are those that soak up system cpu disk or network  
+  - Load average \- takes into account business caused by disk traffic and other forms of I/O  
+  - **df \-h** command shows filesystem disk use in  
+  - **du \-h** to identify which directory is using the most space  
+- Crontabs for individual users stored under /var/spool/cron .  crontab commands tell cron that some crontab files changed, therefore you shouldn’t change crontab directly.    
+  - Cron also objeys system crontab entries found in /etc/crontab and in the /etc/cron.d directory  
+  - 
+
+
+
 ### **1. System Information & Basics**
 - **Uptime**: Shows how long the system has been running.
 - **Free memory**: Use `free -h` to display available memory.
