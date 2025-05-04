@@ -96,26 +96,6 @@
 
 ---
 
-### **7. Scripting & Shell**
-- **Variables**:
-  - `PATH`: Directories for executable search.
-  - `export`: Make variables available to child processes.
-- **Expansion**:
-  - `$(command)`: Command substitution.
-  - Quotes: Single (`'`) suppresses expansion.
-- **Loops/Conditionals**:
-  ```bash
-  if [ -f "file.txt" ]; then
-    echo "Exists"
-  fi
-
-  for i in {1..5}; do
-    echo $i
-  done
-  ```
-
----
-
 ### **8. System Administration**
 - **Storage**:
   - `mount`/`umount`: Manage filesystems.
@@ -304,6 +284,13 @@ dpkg -l                        # List installed packages
 ---
 
 ### **16. Shell Scripting Essentials**
+- **Variables**:
+  - `PATH`: Directories for executable search.
+  - `export`: Make variables available to child processes.
+- **Expansion**:
+  - `$(command)`: Command substitution.
+  - Quotes: Single (`'`) suppresses expansion.
+
 #### **Variables & Expansion**
 ```bash
 name="Alice"                   # Assign variable
